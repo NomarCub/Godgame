@@ -1,50 +1,30 @@
 ﻿using Godgame.model;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI;
-using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Godgame
 {
     public sealed partial class MainPage : Page
     {
+        const int tileSize = 100;
+
         World world = new World();
-        Dictionary<string, CanvasBitmap> images = new Dictionary<string, CanvasBitmap>();
+
+        Dictionary<string, BitmapImage> bitmapImages = new Dictionary<string, BitmapImage>();
         string[] imagePaths = { "grass.png", "villager.png", "tree.png" };
 
-        async Task CreateResourcesAsync(CanvasAnimatedControl sender)
+        private void CanvasInit()
         {
             foreach (var path in imagePaths)
             {
-                var image = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/images/" + path));
-                images[path] = image;
+                var bitmapImage = new BitmapImage();
+                bitmapImage.UriSource = new Uri("ms-appx:///Assets/images/" + path);
+                bitmapImages[path] = bitmapImage;
             }
-        }
-        private void Canvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
-        {
-            args.TrackAsyncAction(CreateResourcesAsync(sender).AsAsyncAction());
-        }
 
-        private void Canvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
-        {
-            //throw new NotImplementedException();
-        }
-
-        private void Canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            var point = e.GetCurrentPoint(Canvas).Position;
-            //var isMouse = e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse;
-            var isLeft = e.GetCurrentPoint(this).Properties.IsLeftButtonPressed;
-        }
-
-        private void Canvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
-        {
             for (int y = world.MinCoordinate.y; y <= world.MaxCoordinate.y; y++)
             {
                 for (int x = world.MinCoordinate.x; x <= world.MaxCoordinate.x; x++)
@@ -53,26 +33,30 @@ namespace Godgame
                     Tile currentTile = world.GetTile(currentCoordinate);
                     if (currentTile != null)
                     {
-                        DrawOnCoordinate(currentCoordinate, currentTile.Path, args);
-                        if (currentTile.structure != null)
-                            DrawOnCoordinate(currentCoordinate, currentTile.structure.Path, args);
-                        if (currentTile.actor != null)
-                            DrawOnCoordinate(currentCoordinate, currentTile.actor.Path, args);
-                    }
-                    else
-                    {
-                        //'?'
+                        initButton(currentCoordinate, currentTile);
                     }
                 }
             }
 
         }
 
-        private void DrawOnCoordinate(Coordinate coordinate, string path, CanvasAnimatedDrawEventArgs args)
+        private void initButton(Coordinate coordinate, Tile tile)
         {
-            float X = (coordinate.x - world.MinCoordinate.x) * 100;
-            float Y = (coordinate.y - world.MinCoordinate.y) * 100;
-            args.DrawingSession.DrawImage(images[path], X, Y);
+            float X = (coordinate.x - world.MinCoordinate.x) * tileSize;
+            float Y = (coordinate.y - world.MinCoordinate.y) * tileSize;
+
+            Button btn = new Button();
+            btn.SetValue(Canvas.LeftProperty, X);
+            btn.SetValue(Canvas.TopProperty, Y);
+            var bitmapImage = bitmapImages[tile.Path];
+            var image = new Image();
+            image.Width = bitmapImage.DecodePixelWidth = tileSize;
+            image.Source = bitmapImage;
+            btn.Content = image;
+
+            btn.Padding = new Thickness(0, 0, 0, 0);
+            btn.Margin = new Thickness(0, 0, 0, 0);
+            MainCanvas.Children.Add(btn);
         }
 
         public MainPage()
@@ -82,6 +66,8 @@ namespace Godgame
             world.GetTile(new Coordinate(0, 0)).structure = new Tree();
             world.GetTile(new Coordinate(2, 3)).structure = new Tree();
             world.GetTile(new Coordinate(2, 3)).actor = new Villager();
+
+            CanvasInit();
         }
     }
 }

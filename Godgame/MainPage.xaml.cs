@@ -40,20 +40,34 @@ namespace Godgame
 
         }
 
-        private void initButton(Coordinate coordinate, Tile tile)
+        private Image imageFromPath(string path)
         {
-            float X = (coordinate.x - world.MinCoordinate.x) * tileSize;
-            float Y = (coordinate.y - world.MinCoordinate.y) * tileSize;
-
-            Button btn = new Button();
-            btn.SetValue(Canvas.LeftProperty, X);
-            btn.SetValue(Canvas.TopProperty, Y);
-            var bitmapImage = bitmapImages[tile.Path];
+            var bitmapImage = bitmapImages[path];
             var image = new Image();
             image.Width = bitmapImage.DecodePixelWidth = tileSize;
             image.Source = bitmapImage;
-            btn.Content = image;
+            return image;
+        }
 
+        private void initButton(Coordinate coordinate, Tile tile)
+        {
+            var panel = new StackPanel();
+
+            var tileImage = imageFromPath(tile.Path);
+
+
+            if (tile.Actor != null)
+                panel.Children.Add(imageFromPath(tile.Actor.Path));
+            if (tile.Structure != null)
+                panel.Children.Add(imageFromPath(tile.Structure.Path));
+            panel.Children.Add(tileImage);
+
+            Button btn = new Button();
+            btn.Content = panel;
+            float X = (coordinate.x - world.MinCoordinate.x) * tileSize;
+            float Y = (coordinate.y - world.MinCoordinate.y) * tileSize;
+            btn.SetValue(Canvas.LeftProperty, X);
+            btn.SetValue(Canvas.TopProperty, Y);
             btn.Padding = new Thickness(0, 0, 0, 0);
             btn.Margin = new Thickness(0, 0, 0, 0);
             MainCanvas.Children.Add(btn);
@@ -63,9 +77,9 @@ namespace Godgame
         {
             this.InitializeComponent();
             world.Fill();
-            world.GetTile(new Coordinate(0, 0)).structure = new Tree();
-            world.GetTile(new Coordinate(2, 3)).structure = new Tree();
-            world.GetTile(new Coordinate(2, 3)).actor = new Villager();
+            world.GetTile(new Coordinate(0, 0)).Structure = new Tree();
+            world.GetTile(new Coordinate(2, 3)).Structure = new Tree();
+            world.GetTile(new Coordinate(2, 3)).Actor = new Villager();
 
             CanvasInit();
         }

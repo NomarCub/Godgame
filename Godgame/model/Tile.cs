@@ -6,8 +6,8 @@ namespace Godgame.model
     {
         //List<Structure> structures = new List<Structure>();
         //List<Actor> actors = new List<Actor>();
-        public Structure structure { get; set; } = null;
-        public Actor actor { get; set; } = null;
+        public Structure Structure { get; set; } = null;
+        public Actor Actor { get; set; } = null;
         Dictionary<Direction, Tile> neighbours = new Dictionary<Direction, Tile>();
 
         public Tile GetNeighbour(Direction dir)

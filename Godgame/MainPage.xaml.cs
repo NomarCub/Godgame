@@ -51,19 +51,22 @@ namespace Godgame
 
         private void initButton(Coordinate coordinate, Tile tile)
         {
-            var panel = new StackPanel();
+            var canvas = new Canvas();
 
             var tileImage = imageFromPath(tile.Path);
 
-
-            if (tile.Actor != null)
-                panel.Children.Add(imageFromPath(tile.Actor.Path));
+            canvas.Children.Add(tileImage);
             if (tile.Structure != null)
-                panel.Children.Add(imageFromPath(tile.Structure.Path));
-            panel.Children.Add(tileImage);
+                canvas.Children.Add(imageFromPath(tile.Structure.Path));
+            if (tile.Actor != null)
+                canvas.Children.Add(imageFromPath(tile.Actor.Path));
+            //tileImage.Margin= new Thickness(0, 0, 0, 0);
+            //canvas.Margin = new Thickness(0, 0, 0, 0);
+            //tileImage.SetValue(Canvas.LeftProperty, 0);
+            //tileImage.SetValue(Canvas.TopProperty, 0);
 
             Button btn = new Button();
-            btn.Content = panel;
+            btn.Content = canvas;
             float X = (coordinate.x - world.MinCoordinate.x) * tileSize;
             float Y = (coordinate.y - world.MinCoordinate.y) * tileSize;
             btn.SetValue(Canvas.LeftProperty, X);

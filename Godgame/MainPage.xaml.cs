@@ -15,6 +15,7 @@ namespace Godgame
         World world = new World();
 
         public static IDictionary<string, BitmapImage> bitmapImages { get; private set; } = new Dictionary<string, BitmapImage>();
+        public static DrawableToBitmapConverter DrawableToBitmapConverter = new DrawableToBitmapConverter();
 
         string[] imagePaths = { "grass.png", "villager.png", "tree.png", "void.png" };
 
@@ -44,12 +45,17 @@ namespace Godgame
 
         }
 
-        private Image imageFromPath(IDrawable drawable)
+        private Image imageFromPropertyName(string propertyName)
         {
-            var bitmapImage = bitmapImages[drawable.Path];
             var image = new Image();
-            
-            image.Source = bitmapImage;
+
+            Binding binding = new Binding();
+            binding.Converter = DrawableToBitmapConverter;
+            binding.Path = new PropertyPath(propertyName);
+            image.SetBinding(Image.SourceProperty, binding);
+            image.Width = tileSize;
+            image.Height = tileSize;
+
             return image;
         }
 
@@ -69,36 +75,9 @@ namespace Godgame
             var canvas = new Canvas();
             btn.Content = canvas;
 
-            var drawableConv = new DrawableToBitmapConverter();
-
-            var tileImage = new Image();
-            var structureImage = new Image();
-            var actorImage = new Image();
-
-            Binding tileBinding = new Binding();
-            Binding structureBinding = new Binding();
-            Binding actorBinding = new Binding();
-
-            tileBinding.Converter = drawableConv;
-            structureBinding.Converter = drawableConv;
-            actorBinding.Converter = drawableConv;
-
-            tileBinding.Path = new PropertyPath("");
-            structureBinding.Path = new PropertyPath("Structure");
-            actorBinding.Path = new PropertyPath("Actor");
-
-            tileImage.SetBinding(Image.SourceProperty, tileBinding);
-            structureImage.SetBinding(Image.SourceProperty, structureBinding);
-            actorImage.SetBinding(Image.SourceProperty, actorBinding);
-
-            tileImage.Width = tileSize;
-            structureImage.Width = tileSize;
-            actorImage.Width = tileSize;
-
-            canvas.Children.Add(tileImage);
-            canvas.Children.Add(structureImage);
-            canvas.Children.Add(actorImage);
-            
+            canvas.Children.Add(imageFromPropertyName(""));
+            canvas.Children.Add(imageFromPropertyName(nameof(Tile.Structure)));
+            canvas.Children.Add(imageFromPropertyName(nameof(Tile.Actor)));
 
             //tileImage.Margin= new Thickness(0, 0, 0, 0);
             //canvas.Margin = new Thickness(0, 0, 0, 0);

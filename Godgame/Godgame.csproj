@@ -124,7 +124,7 @@
     </Compile>
     <Compile Include="model\Actor.cs" />
     <Compile Include="model\Coordinate.cs" />
-    <Compile Include="model\IPrintable.cs" />
+    <Compile Include="model\IDrawable.cs" />
     <Compile Include="model\NPC.cs" />
     <Compile Include="model\Structure.cs" />
     <Compile Include="model\Tile.cs" />
@@ -143,6 +143,7 @@
     <Content Include="Assets\images\grass.png" />
     <Content Include="Assets\images\tree.png" />
     <Content Include="Assets\images\villager.png" />
+    <Content Include="Assets\images\void.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

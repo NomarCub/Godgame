@@ -1,14 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Godgame.model
 {
-    class Tile : IDrawable
+    class Tile : IDrawable, INotifyPropertyChanged
     {
         //List<Structure> structures = new List<Structure>();
         //List<Actor> actors = new List<Actor>();
-        public Structure Structure { get; set; } = null;
+        private Structure _Structure = null;
+        public Structure Structure
+        {
+            get => _Structure;
+            set
+            {
+                if (value != _Structure)
+                {
+                    _Structure = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Structure)));
+                }
+            }
+        }
         public Actor Actor { get; set; } = null;
         Dictionary<Direction, Tile> neighbours = new Dictionary<Direction, Tile>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Tile GetNeighbour(Direction dir)
         {

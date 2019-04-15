@@ -10,7 +10,7 @@ namespace Godgame
 {
     public sealed partial class MainPage : Page
     {
-        const int tileSize = 100;
+        const int tileSize = 50;
 
         World world = new World();
 
@@ -56,6 +56,10 @@ namespace Godgame
             image.Width = tileSize;
             image.Height = tileSize;
 
+            //image.Margin = new Thickness(0, 0, 0, 0);
+            //image.SetValue(Canvas.LeftProperty, 0);
+            //image.SetValue(Canvas.TopProperty, 0);
+
             return image;
         }
 
@@ -70,6 +74,7 @@ namespace Godgame
             btn.SetValue(Canvas.TopProperty, Y);
             btn.Padding = new Thickness(0, 0, 0, 0);
             btn.Margin = new Thickness(0, 0, 0, 0);
+            btn.BorderThickness = new Thickness(0, 0, 0, 0);
             MainCanvas.Children.Add(btn);
 
             var canvas = new Canvas();
@@ -79,16 +84,12 @@ namespace Godgame
             canvas.Children.Add(imageFromPropertyName(nameof(Tile.Structure)));
             canvas.Children.Add(imageFromPropertyName(nameof(Tile.Actor)));
 
-            //tileImage.Margin= new Thickness(0, 0, 0, 0);
             //canvas.Margin = new Thickness(0, 0, 0, 0);
-            //tileImage.SetValue(Canvas.LeftProperty, 0);
-            //tileImage.SetValue(Canvas.TopProperty, 0);
-
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            ((Tile)((Button)sender).DataContext).Structure = null;
+            ((sender as Button).DataContext as Tile).Structure = null;
         }
 
         public MainPage()
@@ -98,24 +99,21 @@ namespace Godgame
             world.GetTile(new Coordinate(0, 0)).Structure = new Tree();
             world.GetTile(new Coordinate(2, 3)).Structure = new Tree();
             world.GetTile(new Coordinate(2, 3)).Actor = new Villager();
-
             CanvasInit();
+
+            DispatcherTimer ticker = new DispatcherTimer();
+            ticker.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            ticker.Tick += Test;
+            ticker.Start();
+        }
+
+        private void Test(object sender, object e)
+        {
+            if (world.GetTile(new Coordinate(0, 0)).Structure == null)
+                world.GetTile(new Coordinate(0, 0)).Structure = new Tree();
+            else world.GetTile(new Coordinate(0, 0)).Structure = null;
         }
     }
-
-    public class PathToBitmapConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            return MainPage.bitmapImages[(string)value];
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class DrawableToBitmapConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

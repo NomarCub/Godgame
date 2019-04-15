@@ -20,7 +20,21 @@ namespace Godgame.model
                 }
             }
         }
-        public Actor Actor { get; set; } = null;
+
+        private Actor _Actor = null;
+        public Actor Actor
+        {
+            get => _Actor;
+            set
+            {
+                if (value != _Actor)
+                {
+                    _Actor = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Actor)));
+                }
+            }
+        }
+
         Dictionary<Direction, Tile> neighbours = new Dictionary<Direction, Tile>();
 
         public event PropertyChangedEventHandler PropertyChanged;

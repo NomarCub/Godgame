@@ -12,7 +12,7 @@ namespace Godgame
     {
         const int tileSize = 50;
 
-        World world = new World();
+        World world = World.GetTestWorld();
 
         public static IDictionary<string, BitmapImage> bitmapImages { get; private set; } = new Dictionary<string, BitmapImage>();
         public static DrawableToBitmapConverter DrawableToBitmapConverter = new DrawableToBitmapConverter();
@@ -95,10 +95,7 @@ namespace Godgame
         public MainPage()
         {
             this.InitializeComponent();
-            world.Fill();
-            world.GetTile(new Coordinate(0, 0)).Structure = new Tree();
-            world.GetTile(new Coordinate(2, 3)).Structure = new Tree();
-            world.GetTile(new Coordinate(2, 3)).Actor = new Villager();
+
             CanvasInit();
 
             DispatcherTimer ticker = new DispatcherTimer();

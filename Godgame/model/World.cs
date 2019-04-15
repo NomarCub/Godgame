@@ -124,5 +124,15 @@ namespace Godgame.model
                 }
             }
         }
+
+        public static World GetTestWorld()
+        {
+            var world = new World();
+            world.Fill();
+            world.GetTile(new Coordinate(0, 0)).Structure = new Tree();
+            world.GetTile(new Coordinate(2, 3)).Structure = new Tree();
+            world.GetTile(new Coordinate(2, 3)).Actor = new Villager();
+            return world;
+        }
     }
 }

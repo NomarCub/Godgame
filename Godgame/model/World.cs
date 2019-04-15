@@ -1,117 +1,39 @@
-﻿using System.Collections.Generic;
-
-namespace Godgame.model
+﻿namespace Godgame.model
 {
 
     class World
     {
-        Dictionary<Coordinate, Tile> tiles = new Dictionary<Coordinate, Tile>();
+        public readonly Coordinate MaxCoordinate;
 
-        private bool isUpToDate = true;
+        private Tile[][] tiles;
 
-        private Coordinate minCoor;
-        private Coordinate maxCoor;
-        public Coordinate MinCoordinate
+        public World(Coordinate maxCoor)
         {
-            get
+            MaxCoordinate = maxCoor;
+            tiles = new Tile[MaxCoordinate.x + 1][];
+            for (int i = 0; i < MaxCoordinate.x + 1; i++)
             {
-                if (!isUpToDate) update();
-                return minCoor;
-            }
-            private set
-            {
-                minCoor = value;
-            }
-        }
-        public Coordinate MaxCoordinate
-        {
-            get
-            {
-                if (!isUpToDate) update();
-                return maxCoor;
-            }
-            private set
-            {
-                maxCoor = value;
+                tiles[i] = new Tile[MaxCoordinate.y + 1];
             }
         }
 
-        private void update()
+        public Tile this[int x, int y]
         {
-            var coordinates = new List<Coordinate>(tiles.Keys);
-            int minX = coordinates[0].x, maxX = coordinates[0].x, minY = coordinates[0].y, maxY = coordinates[0].y;
-            foreach (var coor in coordinates)
-            {
-                if (coor.x < minX)
-                    minX = coor.x;
-                if (coor.y < minY)
-                    minY = coor.y;
-                if (coor.x > maxX)
-                    maxX = coor.x;
-                if (coor.y > maxY)
-                    maxY = coor.y;
-            }
-            MinCoordinate = new Coordinate(minX, minY);
-            MaxCoordinate = new Coordinate(maxX, maxY);
-
-            isUpToDate = true;
+            get { return tiles[x][y]; }
+            private set { tiles[x][y] = value; }
         }
 
-        //public void print()
-        //{
-        //    if (!upToDate)
-        //        update();
-
-        //    for (int y = minCoordinate.y; y <= maxCoordinate.y; y++)
-        //    {
-        //        for (int x = minCoordinate.x; x <= maxCoordinate.x; x++)
-        //        {
-        //            var currentCoordinate = new Coordinate(x, y);
-
-        //            Tile currentTile;
-        //            if (tiles.TryGetValue(currentCoordinate, out currentTile))
-        //            {
-        //                System.Console.Write(currentTile.print); ;
-        //            }
-        //            else
-        //            {
-        //                System.Console.Write('?');
-        //            }
-        //        }
-        //        System.Console.WriteLine();
-        //    }
-        //    System.Console.WriteLine();
-        //}
-
-        public void putTile(Coordinate coordinate, Tile tile)
+        public Tile this[Coordinate coordinate]
         {
-            tiles[coordinate] = tile;
-            Tile up, down, left, right;
-
-            tiles.TryGetValue(coordinate.getNeighbour(Direction.up), out up);
-            tiles.TryGetValue(coordinate.getNeighbour(Direction.down), out down);
-            tiles.TryGetValue(coordinate.getNeighbour(Direction.left), out left);
-            tiles.TryGetValue(coordinate.getNeighbour(Direction.right), out right);
-
-            up?.SetNeighbour(Direction.down, tile);
-            down?.SetNeighbour(Direction.up, tile);
-            left?.SetNeighbour(Direction.right, tile);
-            right?.SetNeighbour(Direction.left, tile);
-
-            tile.SetNeighbour(Direction.up, up);
-            tile.SetNeighbour(Direction.down, down);
-            tile.SetNeighbour(Direction.left, left);
-            tile.SetNeighbour(Direction.right, right);
-
-            isUpToDate = false;
+            get { return tiles[coordinate.x][coordinate.y]; }
+            private set { tiles[coordinate.x][coordinate.y] = value; }
         }
 
-        public Tile GetTile(Coordinate coordinate)
+        public void PutActor(Actor actor, Coordinate coordinate)
         {
-            Tile tile;
-            if (tiles.TryGetValue(coordinate, out tile))
-                return tile;
-            else return null;
+            var tile = this[coordinate];
+            tile.Actor = actor;
+            actor.CurrentTile = tile;
         }
 
         public void Fill(int X = 20, int Y = 20)
@@ -120,18 +42,18 @@ namespace Godgame.model
             {
                 for (int y = 0; y < Y; y++)
                 {
-                    putTile(new Coordinate(x, y), new Tile());
+                    var coor = new Coordinate(x, y);
+                    this[coor] = new Tile(coor, this);
                 }
             }
         }
 
         public static World GetTestWorld()
         {
-            var world = new World();
+            var world = new World(new Coordinate(25, 25));
             world.Fill();
-            world.GetTile(new Coordinate(0, 0)).Structure = new Tree();
-            world.GetTile(new Coordinate(2, 3)).Structure = new Tree();
-            world.GetTile(new Coordinate(2, 3)).Actor = new Villager();
+            world[0, 0].Structure = new Tree();
+            world[2, 3].Structure = new Tree();
             return world;
         }
     }

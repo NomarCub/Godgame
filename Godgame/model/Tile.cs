@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Godgame.model
 {
@@ -35,22 +34,34 @@ namespace Godgame.model
             }
         }
 
-        Dictionary<Direction, Tile> neighbours = new Dictionary<Direction, Tile>();
+        public readonly Coordinate Coordinate;
+        public readonly World World;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public Tile(Coordinate coordinate, World world)
+        {
+            this.Coordinate = coordinate;
+            this.World = world;
+        }
+
         public Tile GetNeighbour(Direction dir)
         {
-            Tile tile;
-            neighbours.TryGetValue(dir, out tile);
-            return tile;
+            return World[Coordinate.getNeighbour(dir)];
+        }
+
+        public bool Accept(Actor actor)
+        {
+            if (Actor == null)
+            {
+                actor.CurrentTile.Actor = null;
+                actor.CurrentTile = this;
+                Actor = actor;
+                return true;
+            }
+            return false;
         }
 
         public string Path => "grass.png";
-
-        public void SetNeighbour(Direction dir, Tile neighbour)
-        {
-            if (neighbour != null) neighbours[dir] = neighbour;
-        }
     }
 }

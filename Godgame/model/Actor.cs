@@ -2,7 +2,7 @@
 {
     abstract class Actor : IDrawable
     {
-        Tile CurrentTile;
+        public Tile CurrentTile { get; set; }
         public abstract string Path { get; }
     }
 }

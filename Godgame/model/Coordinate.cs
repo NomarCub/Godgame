@@ -32,6 +32,11 @@
             return a.x > b.x || (a.x == b.x && a.y > b.y);
         }
 
+        public static Coordinate operator +(Coordinate a, Coordinate b)
+        {
+            return new Coordinate(a.x + b.x, a.y + b.y);
+        }
+
         public Coordinate getNeighbour(Direction direction)
         {
             switch (direction)

@@ -2,7 +2,7 @@
 {
     abstract class Structure : IDrawable
     {
-        Tile CurrentTile;
+        Tile Tile;
         public abstract string Path { get; }
     }
 }

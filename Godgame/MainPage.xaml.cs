@@ -13,6 +13,7 @@ namespace Godgame
         const int tileSize = 50;
 
         World world = World.GetTestWorld();
+        Villager villager = new Villager();
 
         public static IDictionary<string, BitmapImage> bitmapImages { get; private set; } = new Dictionary<string, BitmapImage>();
         public static DrawableToBitmapConverter DrawableToBitmapConverter = new DrawableToBitmapConverter();
@@ -30,12 +31,12 @@ namespace Godgame
                 bitmapImages[path] = bitmapImage;
             }
 
-            for (int y = world.MinCoordinate.y; y <= world.MaxCoordinate.y; y++)
+            for (int y = 0; y <= world.MaxCoordinate.y; y++)
             {
-                for (int x = world.MinCoordinate.x; x <= world.MaxCoordinate.x; x++)
+                for (int x = 0; x <= world.MaxCoordinate.x; x++)
                 {
                     var currentCoordinate = new Coordinate(x, y);
-                    Tile currentTile = world.GetTile(currentCoordinate);
+                    Tile currentTile = world[currentCoordinate];
                     if (currentTile != null)
                     {
                         initButton(currentCoordinate, currentTile);
@@ -68,8 +69,8 @@ namespace Godgame
             Button btn = new Button();
             btn.DataContext = tile;
             btn.Click += Btn_Click;
-            float X = (coordinate.x - world.MinCoordinate.x) * tileSize;
-            float Y = (coordinate.y - world.MinCoordinate.y) * tileSize;
+            float X = coordinate.x * tileSize;
+            float Y = coordinate.y * tileSize;
             btn.SetValue(Canvas.LeftProperty, X);
             btn.SetValue(Canvas.TopProperty, Y);
             btn.Padding = new Thickness(0, 0, 0, 0);
@@ -89,12 +90,18 @@ namespace Godgame
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            ((sender as Button).DataContext as Tile).Structure = null;
+            var tile = (sender as Button).DataContext as Tile;
+            int dx = tile.Coordinate.x - villager.CurrentTile.Coordinate.x;
+            int dy = tile.Coordinate.y - villager.CurrentTile.Coordinate.y;
+            var move = new Coordinate(Math.Sign(dx), Math.Sign(dy));
+
+            world[villager.CurrentTile.Coordinate + move].Accept(villager);
         }
 
         public MainPage()
         {
             this.InitializeComponent();
+            world.PutActor(villager, new Coordinate(3, 3));
 
             CanvasInit();
 
@@ -106,9 +113,9 @@ namespace Godgame
 
         private void Test(object sender, object e)
         {
-            if (world.GetTile(new Coordinate(0, 0)).Structure == null)
-                world.GetTile(new Coordinate(0, 0)).Structure = new Tree();
-            else world.GetTile(new Coordinate(0, 0)).Structure = null;
+            if (world[0, 0].Structure == null)
+                world[0, 0].Structure = new Tree();
+            else world[0, 0].Structure = null;
         }
     }
     public class DrawableToBitmapConverter : IValueConverter

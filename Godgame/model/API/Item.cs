@@ -1,8 +1,7 @@
 ﻿namespace Godgame.model
 {
-    abstract class Structure : IDrawable
+    abstract class Item : IDrawable
     {
-        Tile Tile;
         public abstract string Path { get; }
     }
 }

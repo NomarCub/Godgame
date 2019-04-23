@@ -15,6 +15,7 @@ namespace Godgame.model
                 if (value != _Structure)
                 {
                     _Structure = value;
+                    if (_Structure != null) _Structure.Tile = this;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Structure)));
                 }
             }
@@ -29,6 +30,7 @@ namespace Godgame.model
                 if (value != _Actor)
                 {
                     _Actor = value;
+                    if (_Actor != null) _Actor.CurrentTile = this;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Actor)));
                 }
             }
@@ -45,10 +47,8 @@ namespace Godgame.model
             this.World = world;
         }
 
-        public Tile GetNeighbour(Direction dir)
-        {
-            return World[Coordinate.getNeighbour(dir)];
-        }
+        public Tile GetNeighbour(Direction dir) => World[Coordinate.getNeighbour(dir)];
+
 
         public bool Accept(Actor actor)
         {

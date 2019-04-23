@@ -122,15 +122,18 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="model\Actor.cs" />
-    <Compile Include="model\Coordinate.cs" />
-    <Compile Include="model\IDrawable.cs" />
+    <Compile Include="model\API\Actor.cs" />
+    <Compile Include="model\API\Coordinate.cs" />
+    <Compile Include="model\API\IDrawable.cs" />
+    <Compile Include="model\API\Item.cs" />
+    <Compile Include="model\Chest.cs" />
     <Compile Include="model\NPC.cs" />
-    <Compile Include="model\Structure.cs" />
-    <Compile Include="model\Tile.cs" />
+    <Compile Include="model\API\Structure.cs" />
+    <Compile Include="model\API\Tile.cs" />
     <Compile Include="model\Tree.cs" />
     <Compile Include="model\Villager.cs" />
-    <Compile Include="model\World.cs" />
+    <Compile Include="model\API\World.cs" />
+    <Compile Include="model\Wood.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +143,12 @@
     <None Include="Godgame_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\images\bridge.png" />
+    <Content Include="Assets\images\bridge_narrow.png" />
+    <Content Include="Assets\images\chest.png" />
+    <Content Include="Assets\images\floor.png" />
     <Content Include="Assets\images\grass.png" />
+    <Content Include="Assets\images\log.png" />
     <Content Include="Assets\images\tree.png" />
     <Content Include="Assets\images\villager.png" />
     <Content Include="Assets\images\void.png" />

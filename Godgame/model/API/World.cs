@@ -52,8 +52,8 @@
         {
             var world = new World(new Coordinate(25, 25));
             world.Fill();
-            world[0, 0].Structure = new Tree();
-            world[2, 3].Structure = new Tree();
+            world[0, 0].Structure = new Tree(world[0, 0]);
+            world[2, 3].Structure = new Tree(world[2, 3]);
             return world;
         }
     }

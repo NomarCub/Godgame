@@ -97,9 +97,18 @@ namespace Godgame
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             var tile = (sender as Button).DataContext as Tile;
+            if (tile == villager.CurrentTile)
+            {
+                villager.Hit();
+                return;
+            }
             int dx = tile.Coordinate.x - villager.CurrentTile.Coordinate.x;
             int dy = tile.Coordinate.y - villager.CurrentTile.Coordinate.y;
             var move = new Coordinate(Math.Sign(dx), Math.Sign(dy));
+            if (move.x != 0 && move.y != 0)
+            {
+                move = new Coordinate(0, move.y);
+            }
 
             world[villager.CurrentTile.Coordinate + move].Accept(villager);
         }
@@ -120,7 +129,7 @@ namespace Godgame
         private void Test(object sender, object e)
         {
             if (world[0, 0].Structure == null)
-                world[0, 0].Structure = new Tree();
+                world[0, 0].Structure = new Tree(world[0, 0]);
             else world[0, 0].Structure = null;
         }
     }

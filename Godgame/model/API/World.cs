@@ -36,11 +36,11 @@
             actor.CurrentTile = tile;
         }
 
-        public void Fill(int X = 20, int Y = 20)
+        public void Fill()
         {
-            for (int x = 0; x < X; x++)
+            for (int x = 0; x < MaxCoordinate.x; x++)
             {
-                for (int y = 0; y < Y; y++)
+                for (int y = 0; y < MaxCoordinate.y; y++)
                 {
                     var coor = new Coordinate(x, y);
                     this[coor] = new Ground(coor, this);
@@ -54,6 +54,13 @@
             world.Fill();
             world[0, 0].Structure = new Tree(world[0, 0]);
             world[2, 3].Structure = new Tree(world[2, 3]);
+
+            //for (int x = 0; x < world.MaxCoordinate.x; x++)
+            //{
+            //    var coor = new Coordinate(x, 13);
+            //    world[coor] = new Water(coor, world);
+            //}
+
             return world;
         }
     }

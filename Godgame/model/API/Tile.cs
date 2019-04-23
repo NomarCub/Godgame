@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Godgame.model
 {
@@ -6,6 +8,8 @@ namespace Godgame.model
     {
         //List<Structure> structures = new List<Structure>();
         //List<Actor> actors = new List<Actor>();
+        protected static IDictionary<Type, IList<Type>> acceptableStructures = new Dictionary<Type, IList<Type>>();
+
         private Structure _Structure = null;
         public Structure Structure
         {
@@ -14,9 +18,17 @@ namespace Godgame.model
             {
                 if (value != _Structure)
                 {
-                    _Structure = value;
-                    if (_Structure != null) _Structure.Tile = this;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Structure)));
+                    if (value == null)
+                    {
+                        _Structure = value;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Structure)));
+                    }
+                    else if (acceptableStructures[this.GetType()].Contains(value.GetType()))
+                    {
+                        _Structure = value;
+                        _Structure.Tile = this;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Structure)));
+                    }
                 }
             }
         }

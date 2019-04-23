@@ -18,13 +18,19 @@ namespace Godgame
         public static IDictionary<string, BitmapImage> bitmapImages { get; private set; } = new Dictionary<string, BitmapImage>();
         public static DrawableToBitmapConverter DrawableToBitmapConverter = new DrawableToBitmapConverter();
 
-        string[] imagePaths = { "grass.png", "villager.png", "tree.png", "void.png" };
+        List<string> imagePaths = new List<string>();
 
-        private void CanvasInit()
+        private async void CanvasInitAsync()
         {
+            var imagesFolder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\images");
+            var imageFiles = await imagesFolder.CreateItemQuery().GetItemsAsync();
+            foreach (var file in imageFiles)
+                imagePaths.Add(file.Name);
+
             foreach (var path in imagePaths)
             {
                 var bitmapImage = new BitmapImage();
+
                 bitmapImage.UriSource = new Uri("ms-appx:///Assets/images/" + path);
                 bitmapImage.DecodePixelWidth = tileSize;
                 bitmapImage.DecodePixelHeight = tileSize;
@@ -103,7 +109,7 @@ namespace Godgame
             this.InitializeComponent();
             world.PutActor(villager, new Coordinate(3, 3));
 
-            CanvasInit();
+            CanvasInitAsync();
 
             DispatcherTimer ticker = new DispatcherTimer();
             ticker.Interval = new TimeSpan(0, 0, 0, 0, 500);

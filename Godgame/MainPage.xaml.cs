@@ -110,7 +110,7 @@ namespace Godgame
                 move = new Coordinate(0, move.y);
             }
 
-            world[villager.CurrentTile.Coordinate + move].Accept(villager);
+            world[villager.CurrentTile.Coordinate + move].MoveHere(villager);
         }
 
         public MainPage()

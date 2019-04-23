@@ -43,7 +43,7 @@
                 for (int y = 0; y < Y; y++)
                 {
                     var coor = new Coordinate(x, y);
-                    this[coor] = new Tile(coor, this);
+                    this[coor] = new Ground(coor, this);
                 }
             }
         }

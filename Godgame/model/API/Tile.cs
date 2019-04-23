@@ -2,7 +2,7 @@
 
 namespace Godgame.model
 {
-    class Tile : IDrawable, INotifyPropertyChanged
+    abstract class Tile : IDrawable, INotifyPropertyChanged
     {
         //List<Structure> structures = new List<Structure>();
         //List<Actor> actors = new List<Actor>();
@@ -36,6 +36,8 @@ namespace Godgame.model
             }
         }
 
+        public abstract string Path { get; }
+
         public readonly Coordinate Coordinate;
         public readonly World World;
 
@@ -50,7 +52,7 @@ namespace Godgame.model
         public Tile GetNeighbour(Direction dir) => World[Coordinate.getNeighbour(dir)];
 
 
-        public bool Accept(Actor actor)
+        public virtual bool MoveHere(Actor actor)
         {
             if (Actor == null)
             {
@@ -62,6 +64,5 @@ namespace Godgame.model
             return false;
         }
 
-        public string Path => "grass.png";
     }
 }

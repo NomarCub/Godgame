@@ -17,6 +17,6 @@
             return ret;
         }
 
-        public Tree(Tile tile) : base(300, tile) { }
+        public Tree(Tile tile) : base(50, tile) { }
     }
 }

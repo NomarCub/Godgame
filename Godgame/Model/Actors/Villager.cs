@@ -1,4 +1,6 @@
-﻿namespace Godgame.Model
+﻿using Godgame.Model.API;
+
+namespace Godgame.Model
 {
     public class Villager : NPC
     {

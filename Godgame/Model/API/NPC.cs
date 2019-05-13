@@ -1,6 +1,4 @@
-﻿using Godgame.Model.API;
-
-namespace Godgame.Model
+﻿namespace Godgame.Model.API
 {
     public abstract class NPC : Actor
     {

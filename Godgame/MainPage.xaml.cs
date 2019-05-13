@@ -1,9 +1,12 @@
 ﻿using Godgame.Converters;
 using Godgame.Model;
 using Godgame.Model.API;
+using Godgame.Model.Items;
+using Godgame.Model.Structures;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -18,28 +21,29 @@ namespace Godgame
         World world = World.GetTestWorld();
         public Villager Villager { get; private set; } = new Villager();
 
-        public static IDictionary<string, BitmapImage> bitmapImages { get; private set; } = new Dictionary<string, BitmapImage>();
+        public static IDictionary<string, BitmapImage> BitmapImages { get; private set; } = new Dictionary<string, BitmapImage>();
         public static IDrawableToBitmapConverter DrawableToBitmapConverter = new IDrawableToBitmapConverter();
 
-        List<string> imagePaths = new List<string>();
+        static MainPage() { LoadImages(); }
 
-        private async void CanvasInitAsync()
+        private static async Task LoadImages()
         {
             var imagesFolder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\images");
             var imageFiles = await imagesFolder.CreateItemQuery().GetItemsAsync();
-            foreach (var file in imageFiles)
-                imagePaths.Add(file.Name);
 
-            foreach (var path in imagePaths)
+            foreach (var file in imageFiles)
             {
                 var bitmapImage = new BitmapImage();
 
-                bitmapImage.UriSource = new Uri("ms-appx:///Assets/images/" + path);
+                bitmapImage.UriSource = new Uri("ms-appx:///Assets/images/" + file.Name);
                 bitmapImage.DecodePixelWidth = tileSize;
                 bitmapImage.DecodePixelHeight = tileSize;
-                bitmapImages[path] = bitmapImage;
+                BitmapImages[file.Name] = bitmapImage;
             }
+        }
 
+        private void CanvasInit()
+        {
             for (int y = 0; y <= world.MaxCoordinate.y; y++)
             {
                 for (int x = 0; x <= world.MaxCoordinate.x; x++)
@@ -48,23 +52,26 @@ namespace Godgame
                     Tile currentTile = world[currentCoordinate];
                     if (currentTile != null)
                     {
-                        initButton(currentCoordinate, currentTile);
+                        InitButton(currentCoordinate, currentTile);
                     }
                 }
             }
-
         }
 
-        private Image imageFromPropertyName(string propertyName)
+        private Image ImageFromPropertyName(string propertyName)
         {
-            var image = new Image();
 
-            Binding binding = new Binding();
-            binding.Converter = DrawableToBitmapConverter;
-            binding.Path = new PropertyPath(propertyName);
+            var binding = new Binding
+            {
+                Converter = DrawableToBitmapConverter,
+                Path = new PropertyPath(propertyName)
+            };
+            var image = new Image()
+            {
+                Width = tileSize,
+                Height = tileSize
+            };
             image.SetBinding(Image.SourceProperty, binding);
-            image.Width = tileSize;
-            image.Height = tileSize;
 
             //image.Margin = new Thickness(0, 0, 0, 0);
             //image.SetValue(Canvas.LeftProperty, 0);
@@ -73,28 +80,29 @@ namespace Godgame
             return image;
         }
 
-        private void initButton(Coordinate coordinate, Tile tile)
+        private void InitButton(Coordinate coordinate, Tile tile)
         {
-            Button btn = new Button();
-            btn.DataContext = tile;
-            btn.Click += Btn_Click;
+            var canvas = new Canvas();
+            canvas.Children.Add(ImageFromPropertyName(""));
+            canvas.Children.Add(ImageFromPropertyName(nameof(Tile.Structure)));
+            canvas.Children.Add(ImageFromPropertyName(nameof(Tile.Actor)));
+
+            //canvas.Margin = new Thickness(0, 0, 0, 0);
+
+            Button btn = new Button
+            {
+                DataContext = tile,
+                Content = canvas,
+                Padding = new Thickness(0, 0, 0, 0),
+                Margin = new Thickness(0, 0, 0, 0),
+                BorderThickness = new Thickness(0, 0, 0, 0)
+            };
             float X = coordinate.x * tileSize;
             float Y = coordinate.y * tileSize;
             btn.SetValue(Canvas.LeftProperty, X);
+            btn.Click += Btn_Click;
             btn.SetValue(Canvas.TopProperty, Y);
-            btn.Padding = new Thickness(0, 0, 0, 0);
-            btn.Margin = new Thickness(0, 0, 0, 0);
-            btn.BorderThickness = new Thickness(0, 0, 0, 0);
             MainCanvas.Children.Add(btn);
-
-            var canvas = new Canvas();
-            btn.Content = canvas;
-
-            canvas.Children.Add(imageFromPropertyName(""));
-            canvas.Children.Add(imageFromPropertyName(nameof(Tile.Structure)));
-            canvas.Children.Add(imageFromPropertyName(nameof(Tile.Actor)));
-
-            //canvas.Margin = new Thickness(0, 0, 0, 0);
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
@@ -123,7 +131,7 @@ namespace Godgame
             this.InitializeComponent();
             world.PutActor(Villager, new Coordinate(3, 3));
 
-            CanvasInitAsync();
+            CanvasInit();
 
             DispatcherTimer ticker = new DispatcherTimer();
             ticker.Interval = new TimeSpan(0, 0, 0, 0, 500);
@@ -146,11 +154,12 @@ namespace Godgame
             var panel = new StackPanel();
             var lview = new ListView();
 
-            var image = new Image();
-
-            image.Source = bitmapImages["grass.png"];
-            image.Width = tileSize;
-            image.Height = tileSize;
+            var image = new Image
+            {
+                Source = BitmapImages["grass.png"],
+                Width = tileSize,
+                Height = tileSize
+            };
 
             var subss = new ObservableCollection<string> { "lel", "lél" };
 

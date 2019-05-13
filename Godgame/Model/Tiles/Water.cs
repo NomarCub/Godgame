@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Godgame.Model
+namespace Godgame.Model.Tiles
 {
     class Water : Tile
     {

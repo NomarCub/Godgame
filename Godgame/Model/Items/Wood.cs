@@ -1,6 +1,6 @@
 ﻿using Godgame.Model.API;
 
-namespace Godgame.Model
+namespace Godgame.Model.Items
 {
     class Wood : Item
     {

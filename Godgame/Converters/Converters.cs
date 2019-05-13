@@ -10,9 +10,9 @@ namespace Godgame.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value == null)
-                return MainPage.bitmapImages["void.png"];
+                return MainPage.BitmapImages["void.png"];
             else
-                return MainPage.bitmapImages[(value as IDrawable).Path];
+                return MainPage.BitmapImages[(value as IDrawable).Path];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
@@ -24,7 +24,7 @@ namespace Godgame.Converters
         {
             var image = new Image
             {
-                Source = MainPage.bitmapImages[(value as Item).Path],
+                Source = MainPage.BitmapImages[(value as Item).Path],
                 Height = 50
             };
             var text = new TextBlock()
@@ -54,7 +54,7 @@ namespace Godgame.Converters
         {
             var image = new Image
             {
-                Source = MainPage.bitmapImages[(value as ItemAmount).Item.Path],
+                Source = MainPage.BitmapImages[(value as ItemAmount).Item.Path],
                 Width = 50
             };
             var text = new TextBlock()

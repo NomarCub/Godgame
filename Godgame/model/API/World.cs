@@ -1,4 +1,7 @@
-﻿namespace Godgame.Model.API
+﻿using Godgame.Model.Structures;
+using Godgame.Model.Tiles;
+
+namespace Godgame.Model.API
 {
 
     public class World

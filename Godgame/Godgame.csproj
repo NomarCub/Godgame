@@ -127,17 +127,17 @@
     <Compile Include="Model\API\Coordinate.cs" />
     <Compile Include="Model\API\IDrawable.cs" />
     <Compile Include="Model\API\Item.cs" />
-    <Compile Include="Model\API\Pile.cs" />
-    <Compile Include="Model\Chest.cs" />
-    <Compile Include="Model\Ground.cs" />
-    <Compile Include="Model\NPC.cs" />
+    <Compile Include="Model\Structures\Pile.cs" />
+    <Compile Include="Model\Structures\Chest.cs" />
+    <Compile Include="Model\Tiles\Ground.cs" />
+    <Compile Include="Model\API\NPC.cs" />
     <Compile Include="Model\API\Structure.cs" />
     <Compile Include="Model\API\Tile.cs" />
-    <Compile Include="Model\Tree.cs" />
-    <Compile Include="Model\Villager.cs" />
+    <Compile Include="Model\Structures\Tree.cs" />
+    <Compile Include="Model\Actors\Villager.cs" />
     <Compile Include="Model\API\World.cs" />
-    <Compile Include="Model\Water.cs" />
-    <Compile Include="Model\Wood.cs" />
+    <Compile Include="Model\Tiles\Water.cs" />
+    <Compile Include="Model\Items\Wood.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +181,7 @@
       <Version>6.2.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

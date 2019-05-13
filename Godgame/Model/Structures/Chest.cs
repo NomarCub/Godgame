@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Godgame.Model
+namespace Godgame.Model.Structures
 {
     class Chest : Structure
     {

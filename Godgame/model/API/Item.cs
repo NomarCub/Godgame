@@ -24,6 +24,11 @@ namespace Godgame.Model.API
             Amount = amount;
         }
 
+        //public override string ToString()
+        //{
+        //    return Item.Name+ " ";
+        //}
+
         public static implicit operator ItemAmount((Item Item, uint Amount) tuple)
         {
             return new ItemAmount(tuple.Item, tuple.Amount);

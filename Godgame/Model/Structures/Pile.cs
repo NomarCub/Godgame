@@ -1,7 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using Godgame.Model.API;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace Godgame.Model.API
+namespace Godgame.Model.Structures
 {
     class Pile : Structure
     {

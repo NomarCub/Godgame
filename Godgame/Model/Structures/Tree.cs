@@ -1,7 +1,8 @@
 ﻿using Godgame.Model.API;
+using Godgame.Model.Items;
 using System.Threading.Tasks;
 
-namespace Godgame.Model
+namespace Godgame.Model.Structures
 {
     class Tree : Structure
     {

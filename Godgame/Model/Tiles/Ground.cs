@@ -1,8 +1,9 @@
 ﻿using Godgame.Model.API;
+using Godgame.Model.Structures;
 using System;
 using System.Collections.Generic;
 
-namespace Godgame.Model
+namespace Godgame.Model.Tiles
 {
     class Ground : Tile
     {

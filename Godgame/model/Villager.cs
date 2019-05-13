@@ -1,6 +1,6 @@
-﻿namespace Godgame.model
+﻿namespace Godgame.Model
 {
-    class Villager : NPC
+    public class Villager : NPC
     {
         public override string Path => "villager.png";
     }

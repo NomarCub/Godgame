@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
-namespace Godgame.model
+namespace Godgame.Model.API
 {
-    abstract class Actor : IDrawable
+    public abstract class Actor : IDrawable
     {
         private Tile _CurrentTile;
 
@@ -23,7 +23,7 @@ namespace Godgame.model
 
         }
 
-        public IList<Item> Items = new List<Item>();
+        public ObservableCollection<ItemAmount> Inventory { get; } = new ObservableCollection<ItemAmount>();
         public abstract string Path { get; }
 
         public void Hit()

@@ -1,6 +1,8 @@
-﻿namespace Godgame.model
+﻿using System.Threading.Tasks;
+
+namespace Godgame.Model.API
 {
-    abstract class Structure : IDrawable
+    public abstract class Structure : Item
     {
         public uint HitPoints { get; private set; }
 
@@ -32,7 +34,6 @@
                 }
             }
         }
-        public abstract string Path { get; }
 
         public Structure(uint HP, Tile tile)
         {
@@ -40,5 +41,7 @@
             Tile = tile;
             tile.Structure = this;
         }
+
+        public abstract Task Interact();
     }
 }

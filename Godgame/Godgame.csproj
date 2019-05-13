@@ -119,23 +119,25 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\Converters.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="model\API\Actor.cs" />
-    <Compile Include="model\API\Coordinate.cs" />
-    <Compile Include="model\API\IDrawable.cs" />
-    <Compile Include="model\API\Item.cs" />
-    <Compile Include="model\Chest.cs" />
-    <Compile Include="model\Ground.cs" />
-    <Compile Include="model\NPC.cs" />
-    <Compile Include="model\API\Structure.cs" />
-    <Compile Include="model\API\Tile.cs" />
-    <Compile Include="model\Tree.cs" />
-    <Compile Include="model\Villager.cs" />
-    <Compile Include="model\API\World.cs" />
-    <Compile Include="model\Water.cs" />
-    <Compile Include="model\Wood.cs" />
+    <Compile Include="Model\API\Actor.cs" />
+    <Compile Include="Model\API\Coordinate.cs" />
+    <Compile Include="Model\API\IDrawable.cs" />
+    <Compile Include="Model\API\Item.cs" />
+    <Compile Include="Model\API\Pile.cs" />
+    <Compile Include="Model\Chest.cs" />
+    <Compile Include="Model\Ground.cs" />
+    <Compile Include="Model\NPC.cs" />
+    <Compile Include="Model\API\Structure.cs" />
+    <Compile Include="Model\API\Tile.cs" />
+    <Compile Include="Model\Tree.cs" />
+    <Compile Include="Model\Villager.cs" />
+    <Compile Include="Model\API\World.cs" />
+    <Compile Include="Model\Water.cs" />
+    <Compile Include="Model\Wood.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

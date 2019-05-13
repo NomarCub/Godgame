@@ -1,6 +1,9 @@
-﻿using Godgame.model;
+﻿using Godgame.Converters;
+using Godgame.Model;
+using Godgame.Model.API;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -13,10 +16,10 @@ namespace Godgame
         const int tileSize = 50;
 
         World world = World.GetTestWorld();
-        Villager villager = new Villager();
+        public Villager Villager { get; private set; } = new Villager();
 
         public static IDictionary<string, BitmapImage> bitmapImages { get; private set; } = new Dictionary<string, BitmapImage>();
-        public static DrawableToBitmapConverter DrawableToBitmapConverter = new DrawableToBitmapConverter();
+        public static IDrawableToBitmapConverter DrawableToBitmapConverter = new IDrawableToBitmapConverter();
 
         List<string> imagePaths = new List<string>();
 
@@ -97,26 +100,28 @@ namespace Godgame
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             var tile = (sender as Button).DataContext as Tile;
-            if (tile == villager.CurrentTile)
+            if (tile == Villager.CurrentTile)
             {
-                villager.Hit();
+                Villager.Hit();
                 return;
             }
-            int dx = tile.Coordinate.x - villager.CurrentTile.Coordinate.x;
-            int dy = tile.Coordinate.y - villager.CurrentTile.Coordinate.y;
+            int dx = tile.Coordinate.x - Villager.CurrentTile.Coordinate.x;
+            int dy = tile.Coordinate.y - Villager.CurrentTile.Coordinate.y;
             var move = new Coordinate(Math.Sign(dx), Math.Sign(dy));
             if (move.x != 0 && move.y != 0)
             {
                 move = new Coordinate(0, move.y);
             }
 
-            world[villager.CurrentTile.Coordinate + move].MoveHere(villager);
+            world[Villager.CurrentTile.Coordinate + move].MoveHere(Villager);
+
+            DisplayNoWifiDialog();
         }
 
         public MainPage()
         {
             this.InitializeComponent();
-            world.PutActor(villager, new Coordinate(3, 3));
+            world.PutActor(Villager, new Coordinate(3, 3));
 
             CanvasInitAsync();
 
@@ -124,6 +129,10 @@ namespace Godgame
             ticker.Interval = new TimeSpan(0, 0, 0, 0, 500);
             ticker.Tick += Test;
             ticker.Start();
+
+            Villager.Inventory.Add(new ItemAmount(new Wood(), 4));
+            Villager.Inventory.Add(new ItemAmount(new Wood(), 4));
+            Villager.Inventory.Add(new ItemAmount(new Wood(), 4));
         }
 
         private void Test(object sender, object e)
@@ -132,20 +141,33 @@ namespace Godgame
                 world[0, 0].Structure = new Tree(world[0, 0]);
             else world[0, 0].Structure = null;
         }
-    }
-    public class DrawableToBitmapConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        private async void DisplayNoWifiDialog()
         {
-            if (value == null)
-                return MainPage.bitmapImages["void.png"];
-            else
-                return MainPage.bitmapImages[((IDrawable)value).Path];
-        }
+            var panel = new StackPanel();
+            var lview = new ListView();
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
+            var image = new Image();
+
+            image.Source = bitmapImages["grass.png"];
+            image.Width = tileSize;
+            image.Height = tileSize;
+
+            var subss = new ObservableCollection<string> { "lel", "lél" };
+
+            lview.ItemsSource = subss;
+
+            var conv = new ItemToStackPanelConverter();
+            var noWifiDialog = new ContentDialog()
+            {
+                Title = "Select items",
+                DataContext = world[0, 0],
+                //Content = imageFromPropertyName(nameof(Tile.Actor)),
+                //Content = image,
+                Content = lview,
+                //Content = conv.Convert(new Wood(), typeof(StackPanel), null, null),
+                PrimaryButtonText = "Done"
+            };
+            await noWifiDialog.ShowAsync();
         }
     }
 }

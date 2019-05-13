@@ -1,9 +1,15 @@
-﻿namespace Godgame.model
+﻿using Godgame.Model.API;
+using System.Threading.Tasks;
+
+namespace Godgame.Model
 {
     class Tree : Structure
     {
         public override string Path => "tree.png";
 
+        public Tree(Tile tile) : base(50, tile) { }
+
+        static Tree() { names[typeof(Tree)] = "Tree"; }
         override public bool GetHit(uint by)
         {
             bool ret = base.GetHit(by);
@@ -17,6 +23,7 @@
             return ret;
         }
 
-        public Tree(Tile tile) : base(50, tile) { }
+
+        public async override Task Interact() { }
     }
 }

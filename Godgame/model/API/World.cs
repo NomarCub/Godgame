@@ -1,11 +1,11 @@
-﻿namespace Godgame.model
+﻿namespace Godgame.Model.API
 {
 
-    class World
+    public class World
     {
         public readonly Coordinate MaxCoordinate;
 
-        private Tile[][] tiles;
+        private readonly Tile[][] tiles;
 
         public World(Coordinate maxCoor)
         {

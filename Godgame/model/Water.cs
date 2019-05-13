@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Godgame.Model.API;
+using System;
 using System.Collections.Generic;
 
-namespace Godgame.model
+namespace Godgame.Model
 {
     class Water : Tile
     {

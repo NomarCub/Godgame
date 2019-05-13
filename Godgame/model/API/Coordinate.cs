@@ -1,11 +1,11 @@
-﻿namespace Godgame.model
+﻿namespace Godgame.Model.API
 {
-    enum Direction
+    public enum Direction
     {
         up, down, left, right
     }
     //static class DirectionMethods{public static }
-    struct Coordinate
+    public struct Coordinate
     {
         public readonly int x;
         public readonly int y;
@@ -37,7 +37,7 @@
             return new Coordinate(a.x + b.x, a.y + b.y);
         }
 
-        public Coordinate getNeighbour(Direction direction)
+        public Coordinate GetNeighbour(Direction direction)
         {
             switch (direction)
             {

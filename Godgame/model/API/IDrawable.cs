@@ -1,4 +1,4 @@
-﻿namespace Godgame.model
+﻿namespace Godgame.Model.API
 {
     interface IDrawable
     {

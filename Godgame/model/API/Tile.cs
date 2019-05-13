@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Godgame.model
+namespace Godgame.Model.API
 {
-    abstract class Tile : IDrawable, INotifyPropertyChanged
+    public abstract class Tile : IDrawable, INotifyPropertyChanged
     {
         //List<Structure> structures = new List<Structure>();
         //List<Actor> actors = new List<Actor>();
@@ -61,7 +61,7 @@ namespace Godgame.model
             this.World = world;
         }
 
-        public Tile GetNeighbour(Direction dir) => World[Coordinate.getNeighbour(dir)];
+        public Tile GetNeighbour(Direction dir) => World[Coordinate.GetNeighbour(dir)];
 
 
         public virtual bool MoveHere(Actor actor)

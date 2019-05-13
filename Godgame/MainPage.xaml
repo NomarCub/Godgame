@@ -8,8 +8,32 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+
+    <StackPanel
+        DataContext="MainPage"
+        >
+        <StackPanel>
+            <TextBlock>
+                Inventory
+            </TextBlock>
+            <ListView 
+                ItemsSource="{x:Bind Villager.Inventory}"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollMode="Enabled"                  
+                ScrollViewer.VerticalScrollMode="Disabled"
+                >
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel
+                            Background="Transparent"
+                            Orientation="Horizontal"
+                            />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </StackPanel>
         <Canvas x:Name="MainCanvas">
         </Canvas>
-    </Grid>
+    </StackPanel>
 </Page>

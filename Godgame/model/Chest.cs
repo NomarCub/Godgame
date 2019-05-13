@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Godgame.Model.API;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Godgame.model
+namespace Godgame.Model
 {
     class Chest : Structure
     {
@@ -8,5 +10,9 @@ namespace Godgame.model
         public readonly IList<(Item Item, uint Amount)> items = new List<(Item, uint)>();
 
         public Chest(Tile tile) : base(1, tile) { }
+
+        static Chest() { names[typeof(Chest)] = "Chest"; }
+
+        public async override Task Interact() { }
     }
 }

@@ -23,8 +23,29 @@ namespace Godgame.Model.API
 
         }
 
-        public ObservableCollection<ItemAmount> Inventory { get; } = new ObservableCollection<ItemAmount>();
+        private readonly ObservableCollection<ItemAmount> _Inventory = new ObservableCollection<ItemAmount>();
+        public ReadOnlyObservableCollection<ItemAmount> Inventory { get; }
         public abstract string Path { get; }
+
+
+        public Actor()
+        {
+            _Inventory = new ObservableCollection<ItemAmount>();
+            Inventory = new ReadOnlyObservableCollection<ItemAmount>(_Inventory);
+        }
+
+        public void ReceiveItemAmount(ItemAmount items)
+        {
+            foreach (var item in _Inventory)
+            {
+                if (item.Item == items.Item)
+                {
+                    item.Amount += items.Amount;
+                    return;
+                }
+            }
+            _Inventory.Add(items);
+        }
 
         public void Hit()
         {

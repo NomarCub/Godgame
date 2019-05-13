@@ -8,18 +8,22 @@ namespace Godgame.Model.Structures
     {
         public override string Path => "tree.png";
 
-        public Tree(Tile tile) : base(50, tile) { }
+        static Tree()
+        {
+            names[typeof(Tree)] = "Tree";
+            AllMaxHitPoints[typeof(Tree)] = 50;
+        }
 
-        static Tree() { names[typeof(Tree)] = "Tree"; }
+        public Tree(Tile tile) : base(tile) { }
+
         override public bool GetHit(uint by)
         {
             bool ret = base.GetHit(by);
             if (ret)
             {
-                var chest = new Chest(Tile);
-                chest.items.Add((new Wood(), 5));
-                Tile.Structure = chest;
-
+                var pile = new Pile(Tile);
+                pile.ReceiveItemAmount((new Wood(), 5));
+                Tile.Structure = pile;
             }
             return ret;
         }

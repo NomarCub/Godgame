@@ -138,9 +138,7 @@ namespace Godgame
             ticker.Tick += Test;
             ticker.Start();
 
-            Villager.Inventory.Add(new ItemAmount(new Wood(), 4));
-            Villager.Inventory.Add(new ItemAmount(new Wood(), 4));
-            Villager.Inventory.Add(new ItemAmount(new Wood(), 4));
+            Villager.ReceiveItemAmount((new Wood(), 3));
         }
 
         private void Test(object sender, object e)

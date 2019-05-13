@@ -127,6 +127,7 @@
     <Compile Include="Model\API\Coordinate.cs" />
     <Compile Include="Model\API\IDrawable.cs" />
     <Compile Include="Model\API\Item.cs" />
+    <Compile Include="Model\API\ItemContainerStructure.cs" />
     <Compile Include="Model\Structures\Pile.cs" />
     <Compile Include="Model\Structures\Chest.cs" />
     <Compile Include="Model\Tiles\Ground.cs" />

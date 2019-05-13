@@ -1,19 +1,18 @@
 ﻿using Godgame.Model.API;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace Godgame.Model.Structures
 {
-    class Pile : Structure
+    class Pile : ItemContainerStructure
     {
-        public Pile(Tile tile, params (Item Item, uint Amount)[] items) : base(0, tile)
+        static Pile()
         {
-            Items = new ObservableCollection<(Item, uint)>(items);
+            names[typeof(Pile)] = "Pile";
+            AllMaxHitPoints[typeof(Pile)] = 1;
         }
+        public Pile(Tile tile, params ItemAmount[] items) : base(tile, items) { }
 
-        public ObservableCollection<(Item Item, uint Amount)> Items { get; private set; } = new ObservableCollection<(Item, uint)>();
         public override string Path => Items[0].Item.Path;
-
 
         public async override Task Interact() { }
     }

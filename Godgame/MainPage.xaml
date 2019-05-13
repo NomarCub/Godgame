@@ -14,7 +14,7 @@
         DataContext="MainPage"
         >
         <StackPanel.Resources>
-            <conv:IDrawableToBitmapConverter x:Key="CONV" />
+            <conv:IDrawableToBitmapConverter x:Key="DrawableConverter" />
         </StackPanel.Resources>
         <StackPanel>
             <TextBlock>
@@ -26,31 +26,22 @@
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollMode="Enabled"                  
-                ScrollViewer.VerticalScrollMode="Disabled"
-                >
+                ScrollViewer.VerticalScrollMode="Disabled">
                 <ListView.ItemsPanel>
-                    <ItemsPanelTemplate
-                        >
+                    <ItemsPanelTemplate>
                         <StackPanel
                             Background="Transparent"
-                            Orientation="Horizontal"
-                           />
+                            Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
-                    <DataTemplate
-                        x:DataType="StackPanel"
-                        >
+                    <DataTemplate 
+                        x:Name="ItemAmountDataTemplate"
+                        x:DataType="StackPanel">
                         <StackPanel>
-                            <TextBlock
-                            Text="{Binding Item.Name}"
-                            >
-
-                            </TextBlock>
-                            <Image
-                                Source="{Binding Item, Converter={StaticResource CONV}}"
-                                >
-                            </Image>
+                            <TextBlock Text="{Binding Item.Name}"/>
+                            <Image Source="{Binding Item, Converter={StaticResource DrawableConverter}}"/>
+                            <TextBlock Text="{Binding Amount}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

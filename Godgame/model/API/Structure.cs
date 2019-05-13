@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Godgame.Model.API
 {
     public abstract class Structure : Item
     {
-        public uint HitPoints { get; private set; }
+        protected static IDictionary<Type, uint> AllMaxHitPoints = new Dictionary<Type, uint>();
+        public uint HitPoints { get; protected set; }
 
         //returns true if destoryed by the hit
         public virtual bool GetHit(uint by)
@@ -35,9 +38,9 @@ namespace Godgame.Model.API
             }
         }
 
-        public Structure(uint HP, Tile tile)
+        public Structure(Tile tile)
         {
-            HitPoints = HP;
+            HitPoints = AllMaxHitPoints[this.GetType()];
             Tile = tile;
             tile.Structure = this;
         }

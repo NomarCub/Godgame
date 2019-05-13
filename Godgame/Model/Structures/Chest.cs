@@ -1,17 +1,18 @@
 ﻿using Godgame.Model.API;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Godgame.Model.Structures
 {
-    class Chest : Structure
+    class Chest : ItemContainerStructure
     {
-        public override string Path => "chest.png";
-        public readonly IList<(Item Item, uint Amount)> items = new List<(Item, uint)>();
+        static Chest()
+        {
+            names[typeof(Chest)] = "Chest";
+            AllMaxHitPoints[typeof(Chest)] = 100;
+        }
+        public Chest(Tile tile, params ItemAmount[] items) : base(tile, items) { }
 
-        public Chest(Tile tile) : base(1, tile) { }
-
-        static Chest() { names[typeof(Chest)] = "Chest"; }
+        public override string Path => Items[0].Item.Path;
 
         public async override Task Interact() { }
     }

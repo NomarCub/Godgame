@@ -17,17 +17,12 @@ namespace Godgame.Model.API
     {
 
         public Item Item { get; set; }
-        uint Amount { get; set; }
+        public uint Amount { get; set; }
         public ItemAmount(Item item, uint amount)
         {
             Item = item;
             Amount = amount;
         }
-
-        //public override string ToString()
-        //{
-        //    return Item.Name+ " ";
-        //}
 
         public static implicit operator ItemAmount((Item Item, uint Amount) tuple)
         {

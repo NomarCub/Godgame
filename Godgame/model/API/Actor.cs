@@ -16,8 +16,13 @@ namespace Godgame.Model.API
             {
                 if (value != _CurrentTile)
                 {
+                    if (_CurrentTile != null)
+                        _CurrentTile.Actor = null;
                     _CurrentTile = value;
-                    if (_CurrentTile != null) _CurrentTile.Actor = this;
+                    if (_CurrentTile != null)
+                    {
+                        _CurrentTile.Actor = this;
+                    }
                 }
             }
 

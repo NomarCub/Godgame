@@ -6,6 +6,7 @@ using Godgame.Model.Structures;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -73,10 +74,6 @@ namespace Godgame
             };
             image.SetBinding(Image.SourceProperty, binding);
 
-            //image.Margin = new Thickness(0, 0, 0, 0);
-            //image.SetValue(Canvas.LeftProperty, 0);
-            //image.SetValue(Canvas.TopProperty, 0);
-
             return image;
         }
 
@@ -86,8 +83,6 @@ namespace Godgame
             canvas.Children.Add(ImageFromPropertyName(""));
             canvas.Children.Add(ImageFromPropertyName(nameof(Tile.Structure)));
             canvas.Children.Add(ImageFromPropertyName(nameof(Tile.Actor)));
-
-            //canvas.Margin = new Thickness(0, 0, 0, 0);
 
             Button btn = new Button
             {
@@ -107,6 +102,7 @@ namespace Godgame
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
+            Debug.WriteLine(e.GetType().ToString());
             var tile = (sender as Button).DataContext as Tile;
             if (tile == Villager.CurrentTile)
             {
@@ -120,34 +116,32 @@ namespace Godgame
             {
                 move = new Coordinate(0, move.y);
             }
-
-            world[Villager.CurrentTile.Coordinate + move].MoveHere(Villager);
-
-            DisplayNoWifiDialog();
+            Villager.CurrentTile = world[Villager.CurrentTile.Coordinate + move];
         }
 
         public MainPage()
         {
             this.InitializeComponent();
             world.PutActor(Villager, new Coordinate(3, 3));
+            world.ContainerInteractEvent += DisplayNoWifiDialog;
 
             CanvasInit();
 
             DispatcherTimer ticker = new DispatcherTimer();
             ticker.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            ticker.Tick += Test;
+            ticker.Tick += TickTest;
             ticker.Start();
 
-            Villager.ReceiveItemAmount((new Wood(), 3));
+            //Villager.ReceiveItemAmount((new Wood(), 3));
         }
 
-        private void Test(object sender, object e)
+        private void TickTest(object sender, object e)
         {
             if (world[0, 0].Structure == null)
                 world[0, 0].Structure = new Tree(world[0, 0]);
             else world[0, 0].Structure = null;
         }
-        private async void DisplayNoWifiDialog()
+        public async Task DisplayNoWifiDialog(ItemContainerStructure items)
         {
             var panel = new StackPanel();
             var lview = new ListView();

@@ -41,8 +41,15 @@ namespace Godgame.Model.API
             {
                 if (value != _Actor)
                 {
+                    if (_Actor != null)
+                    {
+                        _Actor.CurrentTile._Actor = null;
+                    }
                     _Actor = value;
-                    if (_Actor != null) _Actor.CurrentTile = this;
+                    if (_Actor != null)
+                    {
+                        _Actor.CurrentTile = this;
+                    }
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Actor)));
                 }
             }
@@ -64,17 +71,17 @@ namespace Godgame.Model.API
         public Tile GetNeighbour(Direction dir) => World[Coordinate.GetNeighbour(dir)];
 
 
-        public virtual bool MoveHere(Actor actor)
-        {
-            if (Actor == null)
-            {
-                actor.CurrentTile.Actor = null;
-                actor.CurrentTile = this;
-                Actor = actor;
-                return true;
-            }
-            return false;
-        }
+        //public virtual bool MoveHere(Actor actor)
+        //{
+        //    if (Actor == null)
+        //    {
+        //        actor.CurrentTile.Actor = null;
+        //        actor.CurrentTile = this;
+        //        Actor = actor;
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
     }
 }

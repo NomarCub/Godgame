@@ -1,5 +1,4 @@
 ﻿using Godgame.Model.API;
-using System.Threading.Tasks;
 
 namespace Godgame.Model.Structures
 {
@@ -12,8 +11,6 @@ namespace Godgame.Model.Structures
         }
         public Chest(Tile tile, params ItemAmount[] items) : base(tile, items) { }
 
-        public override string Path => Items[0].Item.Path;
-
-        public async override Task Interact() { }
+        public override string Path => "chest.png";
     }
 }

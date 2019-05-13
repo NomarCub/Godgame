@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace Godgame.Model.API
 {
@@ -11,23 +10,26 @@ namespace Godgame.Model.API
             Items = new ReadOnlyObservableCollection<ItemAmount>(_Items);
         }
 
-        public void ReceiveItemAmount(ItemAmount items)
+        public void ReceiveItemAmount(ItemAmount newItemAmount)
         {
-            foreach (var item in _Items)
+            foreach (var itemAmount in _Items)
             {
-                if (item.Item == items.Item)
+                if (itemAmount.Item == newItemAmount.Item)
                 {
-                    item.Amount += items.Amount;
+                    itemAmount.Amount += newItemAmount.Amount;
                     return;
                 }
             }
-            _Items.Add(items);
+            _Items.Add(newItemAmount);
         }
 
         private readonly ObservableCollection<ItemAmount> _Items = new ObservableCollection<ItemAmount>();
         public ReadOnlyObservableCollection<ItemAmount> Items { get; }
         public override string Path => Items[0].Item.Path;
 
-        public abstract override Task Interact();
+        public override void Interact()
+        {
+            Tile.World.ContainerEvent(this);
+        }
     }
 }

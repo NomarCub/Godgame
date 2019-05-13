@@ -1,6 +1,5 @@
 ﻿using Godgame.Model.API;
 using Godgame.Model.Items;
-using System.Threading.Tasks;
 
 namespace Godgame.Model.Structures
 {
@@ -28,7 +27,6 @@ namespace Godgame.Model.Structures
             return ret;
         }
 
-
-        public async override Task Interact() { }
+        public override void Interact() { }
     }
 }

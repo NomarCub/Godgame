@@ -1,5 +1,4 @@
 ﻿using Godgame.Model.API;
-using System.Threading.Tasks;
 
 namespace Godgame.Model.Structures
 {
@@ -8,12 +7,10 @@ namespace Godgame.Model.Structures
         static Pile()
         {
             names[typeof(Pile)] = "Pile";
-            AllMaxHitPoints[typeof(Pile)] = 1;
+            AllMaxHitPoints[typeof(Pile)] = 110;
         }
         public Pile(Tile tile, params ItemAmount[] items) : base(tile, items) { }
 
         public override string Path => Items[0].Item.Path;
-
-        public async override Task Interact() { }
     }
 }

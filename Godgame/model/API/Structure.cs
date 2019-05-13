@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Godgame.Model.API
 {
@@ -12,6 +12,7 @@ namespace Godgame.Model.API
         //returns true if destoryed by the hit
         public virtual bool GetHit(uint by)
         {
+            Debug.WriteLine("hit");
             if (by < HitPoints)
             {
                 HitPoints -= by;
@@ -45,6 +46,6 @@ namespace Godgame.Model.API
             tile.Structure = this;
         }
 
-        public abstract Task Interact();
+        public abstract void Interact();
     }
 }

@@ -1,14 +1,23 @@
 ﻿using Godgame.Model.Structures;
 using Godgame.Model.Tiles;
+using System.Threading.Tasks;
 
 namespace Godgame.Model.API
 {
+    public delegate Task ContainerInteractHandler(ItemContainerStructure container);
 
     public class World
     {
         public readonly Coordinate MaxCoordinate;
 
         private readonly Tile[][] tiles;
+
+        public event ContainerInteractHandler ContainerInteractEvent;
+
+        public void ContainerEvent(ItemContainerStructure container)
+        {
+            ContainerInteractEvent?.Invoke(container);
+        }
 
         public World(Coordinate maxCoor)
         {
@@ -58,11 +67,11 @@ namespace Godgame.Model.API
             world[0, 0].Structure = new Tree(world[0, 0]);
             world[2, 3].Structure = new Tree(world[2, 3]);
 
-            //for (int x = 0; x < world.MaxCoordinate.x; x++)
-            //{
-            //    var coor = new Coordinate(x, 13);
-            //    world[coor] = new Water(coor, world);
-            //}
+            for (int x = 0; x < world.MaxCoordinate.x; x++)
+            {
+                var coor = new Coordinate(x, 9);
+                world[coor] = new Water(coor, world);
+            }
 
             return world;
         }

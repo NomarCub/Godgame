@@ -102,6 +102,10 @@ namespace Godgame
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
+            var x= new ContentDialog1();
+            x.DataContext = this;
+            x.ShowAsync();
+
             Debug.WriteLine(e.GetType().ToString());
             var tile = (sender as Button).DataContext as Tile;
             if (tile == Villager.CurrentTile)
@@ -122,17 +126,21 @@ namespace Godgame
         public MainPage()
         {
             this.InitializeComponent();
+            this.Loaded += MainPage_Loaded;
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            CanvasInit();
             world.PutActor(Villager, new Coordinate(3, 3));
             world.ContainerInteractEvent += DisplayNoWifiDialog;
 
-            CanvasInit();
 
             DispatcherTimer ticker = new DispatcherTimer();
             ticker.Interval = new TimeSpan(0, 0, 0, 0, 500);
             ticker.Tick += TickTest;
             ticker.Start();
-
-            //Villager.ReceiveItemAmount((new Wood(), 3));
+            Villager.ReceiveItemAmount((new Wood(), 3));
         }
 
         private void TickTest(object sender, object e)

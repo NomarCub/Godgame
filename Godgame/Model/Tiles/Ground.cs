@@ -15,6 +15,7 @@ namespace Godgame.Model.Tiles
             acceptableStructures[typeof(Ground)] = list;
             list.Add(typeof(Tree));
             list.Add(typeof(Chest));
+            list.Add(typeof(Pile));
         }
         public override string Path => "grass.png";
     }

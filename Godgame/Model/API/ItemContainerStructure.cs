@@ -25,7 +25,6 @@ namespace Godgame.Model.API
 
         private readonly ObservableCollection<ItemAmount> _Items = new ObservableCollection<ItemAmount>();
         public ReadOnlyObservableCollection<ItemAmount> Items { get; }
-        public override string Path => Items[0].Item.Path;
 
         public override void Interact()
         {

@@ -23,6 +23,7 @@ namespace Godgame.Model.API
                         _Structure = value;
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Structure)));
                     }
+                    //TODO exception / külön függvény
                     else if (acceptableStructures[this.GetType()].Contains(value.GetType()))
                     {
                         _Structure = value;

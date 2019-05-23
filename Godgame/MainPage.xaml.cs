@@ -5,8 +5,6 @@ using Godgame.Model.Items;
 using Godgame.Model.Structures;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -93,18 +91,23 @@ namespace Godgame
             float X = coordinate.x * tileSize;
             float Y = coordinate.y * tileSize;
             btn.SetValue(Canvas.LeftProperty, X);
-            btn.Click += Btn_Click;
+            btn.Click += ButtonLeftClick;
+            btn.RightTapped += ButtonRightClick;
             btn.SetValue(Canvas.TopProperty, Y);
             MainCanvas.Children.Add(btn);
         }
 
-        private void Btn_Click(object sender, RoutedEventArgs e)
+        private void ButtonRightClick(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
         {
-            var x = new ContentDialog1();
-            x.DataContext = this;
-            //x.ShowAsync();
+            var tile = (sender as Button).DataContext as Tile;
+            if (tile == Villager.CurrentTile && tile.Structure != null)
+            {
+                tile.Structure.Interact();
+            }
+        }
 
-            Debug.WriteLine(e.GetType().ToString());
+        private void ButtonLeftClick(object sender, RoutedEventArgs e)
+        {
             var tile = (sender as Button).DataContext as Tile;
             if (tile == Villager.CurrentTile)
             {
@@ -136,14 +139,13 @@ namespace Godgame
             await LoadImages();
             CanvasInit();
             world.PutActor(Villager, new Coordinate(3, 3));
-            world.ContainerInteractEvent += DisplayNoWifiDialog;
-
+            world.ContainerInteractEvent += ShowContainerEventDialog;
 
             DispatcherTimer ticker = new DispatcherTimer();
             ticker.Interval = new TimeSpan(0, 0, 0, 0, 500);
             ticker.Tick += TickTest;
             ticker.Start();
-            Villager.ReceiveItemAmount((new Wood(), 3));
+            Villager.Inventory.Add((new Wood(), 3));
         }
 
         private void TickTest(object sender, object e)
@@ -152,34 +154,11 @@ namespace Godgame
                 world[0, 0].Structure = new Tree(world[0, 0]);
             else world[0, 0].Structure = null;
         }
-        public async Task DisplayNoWifiDialog(ItemContainerStructure items)
+
+        public async Task ShowContainerEventDialog(ItemContainerStructure container)
         {
-            var panel = new StackPanel();
-            var lview = new ListView();
-
-            var image = new Image
-            {
-                Source = BitmapImages["grass.png"],
-                Width = tileSize,
-                Height = tileSize
-            };
-
-            var subss = new ObservableCollection<string> { "lel", "lél" };
-
-            lview.ItemsSource = subss;
-
-            var conv = new ItemToStackPanelConverter();
-            var noWifiDialog = new ContentDialog()
-            {
-                Title = "Select items",
-                DataContext = world[0, 0],
-                //Content = imageFromPropertyName(nameof(Tile.Actor)),
-                //Content = image,
-                Content = lview,
-                //Content = conv.Convert(new Wood(), typeof(StackPanel), null, null),
-                PrimaryButtonText = "Done"
-            };
-            await noWifiDialog.ShowAsync();
+            var dialog = new ContainerContentDialog(Villager.Inventory, container.Inventory);
+            await dialog.ShowAsync();
         }
     }
 }

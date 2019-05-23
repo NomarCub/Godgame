@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Godgame.Model.API
+﻿namespace Godgame.Model.API
 {
     public abstract class Actor : IDrawable
     {
@@ -28,31 +26,9 @@ namespace Godgame.Model.API
 
         }
 
-        private readonly ObservableCollection<ItemAmount> _Inventory = new ObservableCollection<ItemAmount>();
-        public ReadOnlyObservableCollection<ItemAmount> Inventory { get; }
+        public Inventory Inventory { get; } = new Inventory();
+
         public abstract string ImagePath { get; }
-
-
-        public Actor()
-        {
-            _Inventory = new ObservableCollection<ItemAmount>();
-            Inventory = new ReadOnlyObservableCollection<ItemAmount>(_Inventory);
-        }
-
-        public void ReceiveItemAmount(ItemAmount newItems)
-        {
-            foreach (var oldItem in _Inventory)
-            {
-                if (oldItem.Item.GetType() == newItems.Item.GetType())
-                {
-                    oldItem.Amount += newItems.Amount;
-                    _Inventory.Remove(oldItem);
-                    _Inventory.Add(oldItem);
-                    return;
-                }
-            }
-            _Inventory.Add(newItems);
-        }
 
         public void Hit()
         {

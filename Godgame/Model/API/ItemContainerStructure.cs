@@ -4,31 +4,11 @@ namespace Godgame.Model.API
 {
     public abstract class ItemContainerStructure : Structure
     {
+        public Inventory Inventory { get; }
         public ItemContainerStructure(Tile tile, params ItemAmount[] items) : base(tile)
         {
-            _Items = new ObservableCollection<ItemAmount>();
-            foreach (var item in items)
-                ReceiveItemAmount(item);
-            Items = new ReadOnlyObservableCollection<ItemAmount>(_Items);
+            Inventory = new Inventory(items);
         }
-
-        public void ReceiveItemAmount(ItemAmount newItems)
-        {
-            foreach (var oldItem in _Items)
-            {
-                if (oldItem.Item.GetType() == newItems.Item.GetType())
-                {
-                    oldItem.Amount += newItems.Amount;
-                    _Items.Remove(oldItem);
-                    _Items.Add(oldItem);
-                    return;
-                }
-            }
-            _Items.Add(newItems);
-        }
-
-        private readonly ObservableCollection<ItemAmount> _Items;
-        public ReadOnlyObservableCollection<ItemAmount> Items { get; }
 
         public override void Interact()
         {

@@ -21,8 +21,8 @@
                 Inventory
             </TextBlock>
             <ListView
-                DataContext="{x:Bind Villager.Inventory}"
-                ItemsSource ="{x:Bind Villager.Inventory}"
+                DataContext="{x:Bind Villager.Inventory.Items}"
+                ItemsSource ="{x:Bind Villager.Inventory.Items}"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollMode="Enabled"                  

@@ -11,16 +11,16 @@ namespace Godgame.Model.Structures
         }
         public Pile(Tile tile, params ItemAmount[] items) : base(tile, items) { }
 
-        //TODO miért lehet az Items null
+        //TODO miért lehet az Inventory null
         public override string ImagePath
         {
             get
             {
-                if (Items == null || Items.Count == 0)
+                if(Inventory == null)
                 {
-                    return "void.png";
+                    return "log.png";
                 }
-                return Items[0].Item.ImagePath;
+                return Inventory.Items[0].Item.ImagePath;
             }
         }
 
@@ -29,9 +29,9 @@ namespace Godgame.Model.Structures
             base.OnDestroyed();
             if (Tile.Actor != null)
             {
-                foreach (var items in Items)
+                foreach (var items in Inventory.Items)
                 {
-                    Tile.Actor.ReceiveItemAmount(items);
+                    Tile.Actor.Inventory.Add(items);
                 }
             }
         }

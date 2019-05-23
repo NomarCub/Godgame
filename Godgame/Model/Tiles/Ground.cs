@@ -17,6 +17,6 @@ namespace Godgame.Model.Tiles
             list.Add(typeof(Chest));
             list.Add(typeof(Pile));
         }
-        public override string Path => "grass.png";
+        public override string ImagePath => "grass.png";
     }
 }

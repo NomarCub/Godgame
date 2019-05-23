@@ -5,7 +5,7 @@ namespace Godgame.Model.API
 {
     public abstract class Item : IDrawable
     {
-        public abstract string Path { get; }
+        public abstract string ImagePath { get; }
         protected static IDictionary<Type, string> names = new Dictionary<Type, string>();
         public string Name
         {

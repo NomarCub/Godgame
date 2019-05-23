@@ -10,20 +10,21 @@ namespace Godgame.Model.API
         public uint HitPoints { get; protected set; }
 
         //returns true if destoryed by the hit
-        public virtual bool GetHit(uint by)
+        public virtual void GetHit(uint by)
         {
             Debug.WriteLine("hit");
             if (by < HitPoints)
             {
                 HitPoints -= by;
-                return false;
             }
             else
             {
                 Tile.Structure = null;
-                return true;
+                OnDestroyed();
             }
         }
+
+        protected virtual void OnDestroyed() { }
 
         private Tile _Tile;
         public Tile Tile
@@ -46,6 +47,6 @@ namespace Godgame.Model.API
             tile.Structure = this;
         }
 
-        public abstract void Interact();
+        public virtual void Interact() { }
     }
 }

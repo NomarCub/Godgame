@@ -30,6 +30,7 @@ namespace Godgame.Model.API
                         _Structure.Tile = this;
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Structure)));
                     }
+                    else throw new ArgumentException("This tiletype doesn't accept " + value.GetType().ToString());
                 }
             }
         }
@@ -56,7 +57,7 @@ namespace Godgame.Model.API
             }
         }
 
-        public abstract string Path { get; }
+        public abstract string ImagePath { get; }
 
         public readonly Coordinate Coordinate;
         public readonly World World;

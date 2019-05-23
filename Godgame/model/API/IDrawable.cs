@@ -2,6 +2,6 @@
 {
     interface IDrawable
     {
-        string Path { get; }
+        string ImagePath { get; }
     }
 }

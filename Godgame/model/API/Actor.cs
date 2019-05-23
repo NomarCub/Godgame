@@ -30,7 +30,7 @@ namespace Godgame.Model.API
 
         private readonly ObservableCollection<ItemAmount> _Inventory = new ObservableCollection<ItemAmount>();
         public ReadOnlyObservableCollection<ItemAmount> Inventory { get; }
-        public abstract string Path { get; }
+        public abstract string ImagePath { get; }
 
 
         public Actor()
@@ -39,17 +39,19 @@ namespace Godgame.Model.API
             Inventory = new ReadOnlyObservableCollection<ItemAmount>(_Inventory);
         }
 
-        public void ReceiveItemAmount(ItemAmount items)
+        public void ReceiveItemAmount(ItemAmount newItems)
         {
-            foreach (var item in _Inventory)
+            foreach (var oldItem in _Inventory)
             {
-                if (item.Item == items.Item)
+                if (oldItem.Item.GetType() == newItems.Item.GetType())
                 {
-                    item.Amount += items.Amount;
+                    oldItem.Amount += newItems.Amount;
+                    _Inventory.Remove(oldItem);
+                    _Inventory.Add(oldItem);
                     return;
                 }
             }
-            _Inventory.Add(items);
+            _Inventory.Add(newItems);
         }
 
         public void Hit()

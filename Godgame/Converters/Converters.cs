@@ -12,7 +12,7 @@ namespace Godgame.Converters
             if (value == null)
                 return MainPage.BitmapImages["void.png"];
             else
-                return MainPage.BitmapImages[(value as IDrawable).Path];
+                return MainPage.BitmapImages[(value as IDrawable).ImagePath];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
@@ -24,7 +24,7 @@ namespace Godgame.Converters
         {
             var image = new Image
             {
-                Source = MainPage.BitmapImages[(value as Item).Path],
+                Source = MainPage.BitmapImages[(value as Item).ImagePath],
                 Height = 50
             };
             var text = new TextBlock()
@@ -54,7 +54,7 @@ namespace Godgame.Converters
         {
             var image = new Image
             {
-                Source = MainPage.BitmapImages[(value as ItemAmount).Item.Path],
+                Source = MainPage.BitmapImages[(value as ItemAmount).Item.ImagePath],
                 Width = 50
             };
             var text = new TextBlock()

@@ -11,6 +11,6 @@ namespace Godgame.Model.Structures
         }
         public Chest(Tile tile, params ItemAmount[] items) : base(tile, items) { }
 
-        public override string Path => "chest.png";
+        public override string ImagePath => "chest.png";
     }
 }

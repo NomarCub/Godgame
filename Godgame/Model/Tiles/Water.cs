@@ -12,6 +12,6 @@ namespace Godgame.Model.Tiles
             var list = new List<Type>();
             acceptableStructures[typeof(Water)] = list;
         }
-        public override string Path => "water.png";
+        public override string ImagePath => "water.png";
     }
 }

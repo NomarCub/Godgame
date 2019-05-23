@@ -1,5 +1,6 @@
 ﻿using Godgame.Model.Structures;
 using Godgame.Model.Tiles;
+using System;
 using System.Threading.Tasks;
 
 namespace Godgame.Model.API
@@ -60,12 +61,22 @@ namespace Godgame.Model.API
             }
         }
 
-        public static World GetTestWorld()
+        public static World GetRandomTestWorld()
         {
             var world = new World(new Coordinate(25, 25));
             world.Fill();
             world[0, 0].Structure = new Tree(world[0, 0]);
             world[2, 3].Structure = new Tree(world[2, 3]);
+
+            var rand = new Random();
+            for (int x = 0; x < world.MaxCoordinate.x; x++)
+            {
+                for (int y = 0; y < world.MaxCoordinate.y; y++)
+                {
+                    if (rand.NextDouble() > 0.75)
+                        world[x, y].Structure = new Tree(world[x, y]);
+                }
+            }
 
             for (int x = 0; x < world.MaxCoordinate.x; x++)
             {

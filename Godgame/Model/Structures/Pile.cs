@@ -11,6 +11,29 @@ namespace Godgame.Model.Structures
         }
         public Pile(Tile tile, params ItemAmount[] items) : base(tile, items) { }
 
-        public override string Path => "log.png";
+        //TODO miért lehet az Items null
+        public override string ImagePath
+        {
+            get
+            {
+                if (Items == null || Items.Count == 0)
+                {
+                    return "void.png";
+                }
+                return Items[0].Item.ImagePath;
+            }
+        }
+
+        protected override void OnDestroyed()
+        {
+            base.OnDestroyed();
+            if (Tile.Actor != null)
+            {
+                foreach (var items in Items)
+                {
+                    Tile.Actor.ReceiveItemAmount(items);
+                }
+            }
+        }
     }
 }

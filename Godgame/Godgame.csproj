@@ -129,6 +129,7 @@
     <Compile Include="Model\API\Actor.cs" />
     <Compile Include="Model\API\Coordinate.cs" />
     <Compile Include="Model\API\IDrawable.cs" />
+    <Compile Include="Model\API\Inventory.cs" />
     <Compile Include="Model\API\Item.cs" />
     <Compile Include="Model\API\ItemContainerStructure.cs" />
     <Compile Include="Model\Structures\Pile.cs" />
@@ -148,6 +149,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="Classes.cd" />
     <None Include="Godgame_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

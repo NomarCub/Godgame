@@ -19,13 +19,11 @@ namespace Godgame
     {
         const int tileSize = 50;
 
-        World world = World.GetTestWorld();
+        World world = World.GetRandomTestWorld();
         public Villager Villager { get; private set; } = new Villager();
 
         public static IDictionary<string, BitmapImage> BitmapImages { get; private set; } = new Dictionary<string, BitmapImage>();
         public static IDrawableToBitmapConverter DrawableToBitmapConverter = new IDrawableToBitmapConverter();
-
-        static MainPage() { LoadImages(); }
 
         private static async Task LoadImages()
         {
@@ -102,14 +100,18 @@ namespace Godgame
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            var x= new ContentDialog1();
+            var x = new ContentDialog1();
             x.DataContext = this;
-            x.ShowAsync();
+            //x.ShowAsync();
 
             Debug.WriteLine(e.GetType().ToString());
             var tile = (sender as Button).DataContext as Tile;
             if (tile == Villager.CurrentTile)
             {
+                var a = tile.Structure;
+                //TODO Kivenni, ha a pile megjavul 
+                tile.Structure = null;
+                tile.Structure = a;
                 Villager.Hit();
                 return;
             }
@@ -129,8 +131,9 @@ namespace Godgame
             this.Loaded += MainPage_Loaded;
         }
 
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            await LoadImages();
             CanvasInit();
             world.PutActor(Villager, new Coordinate(3, 3));
             world.ContainerInteractEvent += DisplayNoWifiDialog;

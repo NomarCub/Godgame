@@ -5,7 +5,7 @@ namespace Godgame.Model.Structures
 {
     class Tree : Structure
     {
-        public override string Path => "tree.png";
+        public override string ImagePath => "tree.png";
 
         static Tree()
         {
@@ -15,16 +15,11 @@ namespace Godgame.Model.Structures
 
         public Tree(Tile tile) : base(tile) { }
 
-        override public bool GetHit(uint by)
+        protected override void OnDestroyed()
         {
-            bool ret = base.GetHit(by);
-            if (ret)
-            {
-                var pile = new Pile(Tile);
-                pile.ReceiveItemAmount((new Wood(), 5));
-                Tile.Structure = pile;
-            }
-            return ret;
+            base.OnDestroyed();
+            var pile = new Pile(Tile, new ItemAmount(new Wood(), 5));
+            Tile.Structure = pile;
         }
 
         public override void Interact() { }

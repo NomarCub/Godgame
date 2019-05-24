@@ -9,14 +9,19 @@ namespace Godgame.Model.Structures
             names[typeof(Pile)] = "Pile";
             AllMaxHitPoints[typeof(Pile)] = 20;
         }
-        public Pile(Tile tile, params ItemAmount[] items) : base(tile, items) { }
+
+        //TODO nem semmisül meg. Jól kezelné-e, ha sikerülne?
+        public Pile(Tile tile, params ItemAmount[] items) : base(tile, items)
+        {
+            Inventory.Empty += () => { OnDestroyed(); };
+        }
 
         //TODO miért lehet az Inventory null
         public override string ImagePath
         {
             get
             {
-                if(Inventory == null)
+                if (Inventory == null)
                 {
                     return "log.png";
                 }

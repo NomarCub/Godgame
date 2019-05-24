@@ -18,8 +18,8 @@
                 Your inventory
         </TextBlock>
         <ListView
-                DataContext="{x:Bind PlayerInventory.Items}"
                 ItemsSource ="{x:Bind PlayerInventory.Items}"
+                SelectionChanged="PlayerSelectionChanged"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollMode="Enabled"                  
@@ -47,8 +47,8 @@
                 This container's inventory
         </TextBlock>
         <ListView
-                DataContext="{x:Bind ContainerInventory.Items}"
                 ItemsSource ="{x:Bind ContainerInventory.Items}"
+                SelectionChanged="ContainerSelectionChanged"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.HorizontalScrollMode="Enabled"                  

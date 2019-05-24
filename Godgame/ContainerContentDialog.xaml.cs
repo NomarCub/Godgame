@@ -1,14 +1,13 @@
 ﻿using Godgame.Model.API;
 using Windows.UI.Xaml.Controls;
 
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Godgame
 {
     public sealed partial class ContainerContentDialog : ContentDialog
     {
         private Inventory PlayerInventory;
         private Inventory ContainerInventory;
+
         public ContainerContentDialog(Inventory playerInventory, Inventory containerInventory)
         {
             this.InitializeComponent();
@@ -20,8 +19,19 @@ namespace Godgame
         {
         }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void PlayerSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var selected = (sender as ListView).SelectedItem as ItemAmount;
+            if (selected == null) return;
+            PlayerInventory.Remove(selected);
+            ContainerInventory.Add(selected);
+        }
+        private void ContainerSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selected = (sender as ListView).SelectedItem as ItemAmount;
+            if (selected == null) return;
+            ContainerInventory.Remove(selected);
+            PlayerInventory.Add(selected);
         }
     }
 }

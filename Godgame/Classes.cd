@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Godgame.Model.API.Actor">
-    <Position X="2.5" Y="0.75" Width="1.5" />
+    <Position X="2.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAKAAIIACAAIAAACAAAAAAAAAgEAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAIIACIAIAAAAAAAAAAAAAgEAAAA=</HashCode>
       <FileName>Model\API\Actor.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -11,13 +11,13 @@
   <Class Name="Godgame.Model.API.Item">
     <Position X="6.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAQAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIQAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Model\API\Item.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Godgame.Model.API.ItemAmount">
-    <Position X="6.5" Y="4" Width="1.5" />
+    <Position X="6.5" Y="4.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -28,99 +28,119 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Godgame.Model.API.ItemContainerStructure">
-    <Position X="8.75" Y="4" Width="1.5" />
+    <Position X="8.25" Y="4.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAACAAAAAAAAAAAIAACAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Model\API\ItemContainerStructure.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.API.Tile">
-    <Position X="4.25" Y="0.75" Width="1.75" />
+    <Position X="4.25" Y="1.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAABIAhAIIAAAAAAAEgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAEAAAABIAhAAIAAAAAIAEgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\API\Tile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Godgame.Model.API.World">
-    <Position X="0.75" Y="2.5" Width="1.5" />
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAACAAAAAEAAgQBKQAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAEAAgABLQAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\API\World.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.API.NPC" Collapsed="true">
-    <Position X="2.5" Y="4.5" Width="1.5" />
+    <Position X="2.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\API\NPC.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.API.Structure">
-    <Position X="8.75" Y="0.75" Width="1.5" />
+    <Position X="8.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAhAAAIAAAAAAAAAAAAEACAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAhAAAIAAAAAAAAAAAAEACgQA=</HashCode>
       <FileName>Model\API\Structure.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.Items.Wood" Collapsed="true">
-    <Position X="6.5" Y="2.75" Width="1.5" />
+    <Position X="6.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Items\Wood.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.Structures.Chest" Collapsed="true">
-    <Position X="10.75" Y="4.75" Width="1.5" />
+    <Position X="10.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Structures\Chest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.Structures.Pile" Collapsed="true">
-    <Position X="10.75" Y="4" Width="1.5" />
+    <Position X="10.25" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>Model\Structures\Pile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.Structures.Tree" Collapsed="true">
-    <Position X="10.75" Y="1" Width="1.5" />
+    <Position X="10.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAIAAAAAAAAAAAAAACAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAIAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>Model\Structures\Tree.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.Tiles.Ground" Collapsed="true">
-    <Position X="4.25" Y="5.75" Width="1.25" />
+    <Position X="4.25" Y="6" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Tiles\Ground.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.Tiles.Water" Collapsed="true">
-    <Position X="5.75" Y="5.75" Width="1.25" />
+    <Position X="5.75" Y="6" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Tiles\Water.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Godgame.Model.Villager" Collapsed="true">
-    <Position X="2.5" Y="5.5" Width="1.5" />
+    <Position X="2.5" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Actors\Villager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Godgame.Model.API.IDrawable">
-    <Position X="0.75" Y="0.75" Width="1.5" />
+  <Class Name="Godgame.Model.API.Inventory">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="Godgame.Model.API.Inventory.EmptyEvent" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\API\Inventory.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAIAAAAAABAACAAAAAIABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\API\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Godgame.Model.API.IDrawable">
+    <Position X="0.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\API\IDrawable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Delegate Name="Godgame.Model.API.ContainerInteractHandler">
-    <Position X="0.5" Y="6" Width="2" />
+    <Position X="0.5" Y="2.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\API\World.cs</FileName>
